@@ -34,8 +34,6 @@ data_2 <- fromJSON(result_2, simplifyDataFrame = TRUE)
 lifetime_stats_1 <- as.data.frame(data_1$lifeTimeStats)
 lifetime_stats_2 <- data_2$lifeTimeStats
 
-
-
 # convert list to data frame
 lifetime_stats_1 <- data.frame(t(sapply(lifetime_stats_1,c)))
 lifetime_stats_2 <- data.frame(t(sapply(lifetime_stats_2,c)))
@@ -61,3 +59,14 @@ lifetime_joined<-rbind(lifetime_joined, lifetime_stats_2[1,])
 
 # rename rows
 setattr(lifetime_joined, "row.names", c("values_user_1", "values_user_2"))
+
+# plot total kills per player (bug here)
+kills_plot <- lifetime_joined %>% 
+  ggplot(aes(kills)) + 
+  geom_histogram(stat="count") + 
+  theme(axis.text.x=element_text(size=7, hjust=0), 
+        plot.title=element_text(hjust=0.5)) + 
+  labs(title="Total Kills / Player", x="aaa", y="Number of Kills")
+
+kills_plot
+
